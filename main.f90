@@ -34,9 +34,12 @@ program main
   write(*,*)ns,ne
 
   do iloop =1, nloop
+!$acc kernels
+!$acc loop collapse(1) private(i)
     do i = ns, ne
       avec(i) = bvec(i) + cvec(i)
     end do
+!$acc end kernels
   end do
   
   avec_l = 0d0
